@@ -13,29 +13,29 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.io.IOException;
 import java.util.List;
 
-public class LoginUserModelDeserializer extends JsonDeserializer<LoginUserModel> {
+public class AuthenticationUserDeserializer extends JsonDeserializer<AuthenticationUser> {
 
     @Override
-    public LoginUserModel deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public AuthenticationUser deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
         ObjectMapper mapper = (ObjectMapper) jp.getCodec();
-        JsonNode jsonNode = mapper.readTree(jp);
+        JsonNode jsonNode = mapper.readTree( jp );
         List<SimpleGrantedAuthority> authorities =
                 mapper.convertValue(
-                        jsonNode.get("authorities"),
+                        jsonNode.get( "authorities" ),
                         new TypeReference<List<SimpleGrantedAuthority>>() {
                         }
                 );
 
-        LoginUserModel result = new LoginUserModel(
-                readJsonNode(jsonNode, "username").asText(),
-                readJsonNode(jsonNode, "password").asText(),
-                authorities,
-                readJsonNode(jsonNode, "facilityId").asText()
+        AuthenticationUser result = new AuthenticationUser(
+                readJsonNode( jsonNode, "userId" ).asText(),
+                readJsonNode( jsonNode, "userName" ).asText(),
+                readJsonNode( jsonNode, "password" ).asText(),
+                authorities
         );
         return result;
     }
 
     private JsonNode readJsonNode(JsonNode jsonNode, String field) {
-        return jsonNode.has(field) ? jsonNode.get(field) : MissingNode.getInstance();
+        return jsonNode.has( field ) ? jsonNode.get( field ) : MissingNode.getInstance();
     }
 }

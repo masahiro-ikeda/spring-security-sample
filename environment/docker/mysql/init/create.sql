@@ -8,13 +8,13 @@ CREATE TABLE users(
 );
 
 CREATE TABLE facilities(
-    facility_id   VARCHAR(25) NOT NULL,
+    facility_id   INT(5) NOT NULL AUTO_INCREMENT,
     facility_name VARCHAR(60) NOT NULL,
     PRIMARY KEY(facility_id)
 );
 
 CREATE TABLE user_facility(
-    user_id   VARCHAR(25) NOT NULL,
-    facility_id   VARCHAR(25) NOT NULL,
+    user_id      INT(5) NOT NULL,
+    facility_id  INT(5) NOT NULL,
     PRIMARY KEY(user_id, facility_id)
 );

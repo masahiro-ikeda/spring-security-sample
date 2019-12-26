@@ -1,8 +1,10 @@
 package com.sample.config.secutiry;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sample.security.LoginUserModel;
-import com.sample.security.LoginUserModelMixin;
+import com.sample.security.AuthenticationUser;
+import com.sample.security.AuthenticationUserMixin;
+import com.sample.security.SessionUser;
+import com.sample.security.SessionUserMixin;
 import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
@@ -26,9 +28,10 @@ public class HttpSessionConfig implements BeanClassLoaderAware {
     @Bean
     public RedisSerializer<Object> springSessionDefaultRedisSerializer() {
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModules(SecurityJackson2Modules.getModules(classLoader)); // Spring Securityの拡張モジュールの適用
-        objectMapper.addMixIn(LoginUserModel.class, LoginUserModelMixin.class);
-        return new GenericJackson2JsonRedisSerializer(objectMapper); // Spring Data RedisにJSON変換用のコンポーネントを適用
+        objectMapper.registerModules( SecurityJackson2Modules.getModules( classLoader ) ); // Spring Securityの拡張モジュールの適用
+        objectMapper.addMixIn( AuthenticationUser.class, AuthenticationUserMixin.class );
+        objectMapper.addMixIn( SessionUser.class, SessionUserMixin.class );
+        return new GenericJackson2JsonRedisSerializer( objectMapper ); // Spring Data RedisにJSON変換用のコンポーネントを適用
     }
 
     @Override
@@ -39,7 +42,7 @@ public class HttpSessionConfig implements BeanClassLoaderAware {
     @Bean
     public ObjectMapper objectMapper() {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new CoreJackson2Module());
+        mapper.registerModule( new CoreJackson2Module() );
         return mapper;
     }
 }

@@ -5,39 +5,29 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
+public class AuthenticationUser implements UserDetails {
 
-public class LoginUserModel implements UserDetails {
-
-    private String username;
+    private String userId;
+    private String userName;
     private String password;
     private List<SimpleGrantedAuthority> authorities;
-    private String facilityId;
 
     /**
-     * コンストラクタ
      *
-     * @param username
+     * @param userId
+     * @param userName
      * @param password
      * @param authorities
-     * @param facilityId
      */
-    LoginUserModel(String username, String password, List<SimpleGrantedAuthority> authorities, String facilityId) {
-        this.username = username;
+    AuthenticationUser(String userId, String userName, String password, List<SimpleGrantedAuthority> authorities) {
+        this.userId = userId;
+        this.userName = userName;
         this.password = password;
         this.authorities = authorities;
-        this.facilityId = facilityId;
     }
 
-    public String getFacilityId() {
-        return facilityId;
-    }
-
-    public void setFacilityId(String facilityId) {
-        this.facilityId = facilityId;
-    }
-
-    public void setAuthorities(List<SimpleGrantedAuthority> authorities) {
-        this.authorities = authorities;
+    public String getUserId() {
+        return userId;
     }
 
     @Override
@@ -52,7 +42,7 @@ public class LoginUserModel implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.username;
+        return this.userName;
     }
 
     @Override
@@ -75,4 +65,3 @@ public class LoginUserModel implements UserDetails {
         return true;
     }
 }
-
