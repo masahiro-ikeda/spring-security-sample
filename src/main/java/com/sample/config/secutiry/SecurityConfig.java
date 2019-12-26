@@ -22,6 +22,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
  */
 @Configuration
 @EnableWebSecurity
+@Order(1)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired

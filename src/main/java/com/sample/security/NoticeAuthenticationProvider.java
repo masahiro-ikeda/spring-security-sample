@@ -18,6 +18,7 @@ public class NoticeAuthenticationProvider extends DaoAuthenticationProvider {
         // 認証情報の取得
         LoginUserModel user = (LoginUserModel) auth.getPrincipal();
 
+
         return auth;
     }
 }
