@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
@@ -18,7 +19,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
  */
 @Configuration
 @EnableWebSecurity
-@Order(1)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -32,26 +32,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 認可の設定
         http.authorizeRequests()
-                .antMatchers( "/login" ).permitAll()
-                .mvcMatchers( "/home" ).hasAuthority( "USER" )
-                .mvcMatchers( "/select" ).authenticated();
+                .antMatchers("/login").permitAll()
+                .mvcMatchers("/home").hasAuthority("USER")
+                .mvcMatchers("/select").authenticated();
 
         // ログイン設定
         http.formLogin()
-                .loginProcessingUrl( "/security/login" )
-                .usernameParameter( "username" )
-                .passwordParameter( "password" )
-                .successHandler( successHandler )
+                .loginProcessingUrl("/security/login")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .successHandler(successHandler)
                 .permitAll();
 
         // ログアウト設定
         http.logout()
-                .logoutRequestMatcher( new AntPathRequestMatcher( "/security/logout" ) );
+                .logoutRequestMatcher(new AntPathRequestMatcher("/security/logout"));
+
+        http.csrf().csrfTokenRepository(new CookieCsrfTokenRepository());
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService( authenticationService )
-                .passwordEncoder( NoOpPasswordEncoder.getInstance() );
+        auth.userDetailsService(authenticationService)
+                .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 }
