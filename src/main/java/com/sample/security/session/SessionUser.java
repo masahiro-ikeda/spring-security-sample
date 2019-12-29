@@ -1,10 +1,12 @@
-package com.sample.security;
+package com.sample.security.session;
 
+import com.sample.app.model.Facility;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Component
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -15,7 +17,8 @@ public class SessionUser implements Serializable {
     private String userId;
     private String userName;
     private String authority;
-    private String facilityGroup;
+    private Facility facility;
+    private List<Facility> facilities;
 
     public String getUserId() {
         return userId;
@@ -41,11 +44,19 @@ public class SessionUser implements Serializable {
         this.authority = authority;
     }
 
-    public String getFacilityGroup() {
-        return facilityGroup;
+    public Facility getFacility() {
+        return facility;
     }
 
-    public void setFacilityGroup(String facilityGroup) {
-        this.facilityGroup = facilityGroup;
+    public void setFacility(Facility facility) {
+        this.facility = facility;
+    }
+
+    public List<Facility> getFacilities() {
+        return facilities;
+    }
+
+    public void setFacilities(List<Facility> facilities) {
+        this.facilities = facilities;
     }
 }

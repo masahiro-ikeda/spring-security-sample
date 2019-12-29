@@ -7,7 +7,12 @@
 
 <h1>Select Facility</h1>
 
-<a href="/home">To Home</a>
+<form th:action="@{/home}" method="post">
+    <select name="facility">
+        <option th:each="facility : ${facilities}" th:value="${facility.facilityId}">[[${facility.facilityName}]]</option>
+        <input type="submit" value="選択">
+    </select>
+</form>
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.sample.security;
+package com.sample.security.session;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.MissingNode;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import com.sample.app.model.Facility;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,11 +20,25 @@ public class SessionUserDeserializer extends JsonDeserializer<SessionUser> {
         ObjectMapper mapper = (ObjectMapper) jp.getCodec();
         JsonNode jsonNode = mapper.readTree( jp );
 
+        List<Facility> facilities =
+                mapper.convertValue(
+                        jsonNode.get( "facilities" ),
+                        new TypeReference<List<Facility>>() {
+                        }
+                );
+
+        Facility facility = mapper.convertValue(
+                jsonNode.get( "facility" ),
+                new TypeReference<Facility>() {
+                }
+        );
+
         SessionUser result = new SessionUser();
         result.setUserId( readJsonNode( jsonNode, "userId" ).asText() );
         result.setUserName( readJsonNode( jsonNode, "userName" ).asText() );
         result.setAuthority( readJsonNode( jsonNode, "authority" ).asText() );
-        result.setAuthority( readJsonNode( jsonNode, "facilityGroup" ).asText() );
+        result.setFacility( facility );
+        result.setFacilities( facilities );
 
         return result;
     }

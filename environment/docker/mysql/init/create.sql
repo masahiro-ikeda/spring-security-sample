@@ -14,7 +14,7 @@ CREATE TABLE facilities(
 );
 
 CREATE TABLE user_facility(
-    user_id      INT(5) NOT NULL,
+    user_id      VARCHAR(25) NOT NULL,
     facility_id  INT(5) NOT NULL,
     PRIMARY KEY(user_id, facility_id)
 );

@@ -1,10 +1,12 @@
 package com.sample.config.secutiry;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sample.security.AuthenticationUser;
-import com.sample.security.AuthenticationUserMixin;
-import com.sample.security.SessionUser;
-import com.sample.security.SessionUserMixin;
+import com.sample.app.model.Facility;
+import com.sample.security.login.LoginUser;
+import com.sample.security.login.LoginUserMixin;
+import com.sample.security.session.FacilityMixin;
+import com.sample.security.session.SessionUser;
+import com.sample.security.session.SessionUserMixin;
 import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
@@ -14,8 +16,6 @@ import org.springframework.security.jackson2.SecurityJackson2Modules;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.web.http.CookieSerializer;
 import org.springframework.session.web.http.DefaultCookieSerializer;
-import org.springframework.session.web.http.HeaderHttpSessionIdResolver;
-import org.springframework.session.web.http.HttpSessionIdResolver;
 
 /**
  * セッション管理に関する設定
@@ -25,7 +25,7 @@ import org.springframework.session.web.http.HttpSessionIdResolver;
  * @see com.sample.config.datasource.RedisConfig
  */
 @EnableRedisHttpSession
-public class HttpSessionConfig implements BeanClassLoaderAware {
+public class SessionConfig implements BeanClassLoaderAware {
 
     private ClassLoader classLoader;
 
@@ -46,8 +46,9 @@ public class HttpSessionConfig implements BeanClassLoaderAware {
     public RedisSerializer<Object> springSessionDefaultRedisSerializer() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModules( SecurityJackson2Modules.getModules( classLoader ) ); // Spring Securityの拡張モジュールの適用
-        objectMapper.addMixIn( AuthenticationUser.class, AuthenticationUserMixin.class );
+        objectMapper.addMixIn( LoginUser.class, LoginUserMixin.class );
         objectMapper.addMixIn( SessionUser.class, SessionUserMixin.class );
+        objectMapper.addMixIn( Facility.class, FacilityMixin.class );
         return new GenericJackson2JsonRedisSerializer( objectMapper ); // Spring Data RedisにJSON変換用のコンポーネントを適用
     }
 

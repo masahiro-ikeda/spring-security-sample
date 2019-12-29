@@ -1,4 +1,4 @@
-package com.sample.security;
+package com.sample.security.login;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -13,10 +13,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.io.IOException;
 import java.util.List;
 
-public class AuthenticationUserDeserializer extends JsonDeserializer<AuthenticationUser> {
+public class LoginUserDeserializer extends JsonDeserializer<LoginUser> {
 
     @Override
-    public AuthenticationUser deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public LoginUser deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
         ObjectMapper mapper = (ObjectMapper) jp.getCodec();
         JsonNode jsonNode = mapper.readTree( jp );
         List<SimpleGrantedAuthority> authorities =
@@ -26,13 +26,12 @@ public class AuthenticationUserDeserializer extends JsonDeserializer<Authenticat
                         }
                 );
 
-        AuthenticationUser result = new AuthenticationUser(
+        return new LoginUser(
                 readJsonNode( jsonNode, "userId" ).asText(),
                 readJsonNode( jsonNode, "userName" ).asText(),
                 readJsonNode( jsonNode, "password" ).asText(),
                 authorities
         );
-        return result;
     }
 
     private JsonNode readJsonNode(JsonNode jsonNode, String field) {

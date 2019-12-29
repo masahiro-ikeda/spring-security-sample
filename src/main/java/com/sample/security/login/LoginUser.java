@@ -1,11 +1,11 @@
-package com.sample.security;
+package com.sample.security.login;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
-public class AuthenticationUser implements UserDetails {
+public class LoginUser implements UserDetails {
 
     private String userId;
     private String userName;
@@ -13,13 +13,12 @@ public class AuthenticationUser implements UserDetails {
     private List<SimpleGrantedAuthority> authorities;
 
     /**
-     *
      * @param userId
      * @param userName
      * @param password
      * @param authorities
      */
-    AuthenticationUser(String userId, String userName, String password, List<SimpleGrantedAuthority> authorities) {
+    LoginUser(String userId, String userName, String password, List<SimpleGrantedAuthority> authorities) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
