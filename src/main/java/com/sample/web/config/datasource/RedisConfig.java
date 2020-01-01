@@ -1,4 +1,4 @@
-package com.sample.root.config.datasource;
+package com.sample.web.config.datasource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,12 +10,12 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 @Configuration
 public class RedisConfig {
 
-    @Bean
-    public LettuceConnectionFactory connectionFactory() {
+	@Bean
+	public LettuceConnectionFactory connectionFactory() {
 
-        String redisHost = "localhost";
-        int redisPort = 16379;
+		String redisHost = "localhost";
+		int redisPort = 16379;
 
-        return new LettuceConnectionFactory(redisHost, redisPort);
-    }
+		return new LettuceConnectionFactory(redisHost, redisPort);
+	}
 }
