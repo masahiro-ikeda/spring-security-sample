@@ -1,4 +1,6 @@
-package com.sample.security.session;
+package com.sample.root.security.session;
+
+import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -7,9 +9,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.MissingNode;
-import com.sample.app.model.Facility;
-
-import java.io.IOException;
+import com.sample.common.model.Facility;
 
 public class FacilityDeserializer extends JsonDeserializer<Facility> {
 

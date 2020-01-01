@@ -1,12 +1,13 @@
-package com.sample.security.session;
+package com.sample.root.security.session;
 
-import com.sample.app.model.Facility;
+import java.io.Serializable;
+import java.util.List;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
-import java.util.List;
+import com.sample.common.model.Facility;
 
 @Component
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)

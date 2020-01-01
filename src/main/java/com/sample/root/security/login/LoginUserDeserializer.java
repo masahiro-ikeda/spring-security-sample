@@ -1,4 +1,4 @@
-package com.sample.security.login;
+package com.sample.root.security.login;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;

@@ -1,12 +1,5 @@
-package com.sample.config.secutiry;
+package com.sample.root.config.secutiry;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sample.app.model.Facility;
-import com.sample.security.login.LoginUser;
-import com.sample.security.login.LoginUserMixin;
-import com.sample.security.session.FacilityMixin;
-import com.sample.security.session.SessionUser;
-import com.sample.security.session.SessionUserMixin;
 import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
@@ -17,12 +10,20 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 import org.springframework.session.web.http.CookieSerializer;
 import org.springframework.session.web.http.DefaultCookieSerializer;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sample.common.model.Facility;
+import com.sample.root.security.login.LoginUser;
+import com.sample.root.security.login.LoginUserMixin;
+import com.sample.root.security.session.FacilityMixin;
+import com.sample.root.security.session.SessionUser;
+import com.sample.root.security.session.SessionUserMixin;
+
 /**
  * セッション管理に関する設定
  * <p>
  * - 保存先
  *
- * @see com.sample.config.datasource.RedisConfig
+ * @see com.sample.root.config.datasource.RedisConfig
  */
 @EnableRedisHttpSession
 public class SessionConfig implements BeanClassLoaderAware {

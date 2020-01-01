@@ -1,7 +1,7 @@
-package com.sample.config.secutiry;
+package com.sample.root.config.secutiry;
 
-import com.sample.security.login.LoginService;
-import com.sample.security.login.LoginSuccessHandler;
+import com.sample.root.security.login.LoginService;
+import com.sample.root.security.login.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

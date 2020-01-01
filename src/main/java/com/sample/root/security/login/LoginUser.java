@@ -1,4 +1,4 @@
-package com.sample.security.login;
+package com.sample.root.security.login;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

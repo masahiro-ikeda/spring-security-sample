@@ -1,8 +1,7 @@
-package com.sample.app.controller;
+package com.sample.root.app.controller;
 
-import com.sample.app.model.Facility;
-import com.sample.app.repository.FacilityRepository;
-import com.sample.security.session.SessionUser;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Optional;
+import com.sample.common.model.Facility;
+import com.sample.common.repository.FacilityRepository;
+import com.sample.root.security.session.SessionUser;
 
 @Controller
 public class SampleController {

@@ -1,11 +1,12 @@
-package com.sample.app.query;
+package com.sample.root.app.query;
 
-import com.sample.app.model.Facility;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.data.repository.query.Param;
 
-import java.util.List;
+import com.sample.common.model.Facility;
 
 @Mapper
 public interface FacilityQuery {
