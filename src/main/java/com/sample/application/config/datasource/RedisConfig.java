@@ -1,4 +1,4 @@
-package com.sample.web.config.datasource;
+package com.sample.application.config.datasource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

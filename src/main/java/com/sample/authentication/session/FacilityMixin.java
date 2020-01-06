@@ -1,4 +1,4 @@
-package com.sample.web.security.session;
+package com.sample.authentication.session;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

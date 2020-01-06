@@ -1,5 +1,7 @@
-package com.sample.web.config.secutiry;
+package com.sample.authentication.session.config;
 
+import com.sample.authentication.login.LoginUser;
+import com.sample.authentication.login.LoginUserMixin;
 import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
@@ -12,11 +14,9 @@ import org.springframework.session.web.http.DefaultCookieSerializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sample.common.model.Facility;
-import com.sample.web.security.login.LoginUser;
-import com.sample.web.security.login.LoginUserMixin;
-import com.sample.web.security.session.FacilityMixin;
-import com.sample.web.security.session.SessionUser;
-import com.sample.web.security.session.SessionUserMixin;
+import com.sample.authentication.session.FacilityMixin;
+import com.sample.authentication.session.SessionUser;
+import com.sample.authentication.session.SessionUserMixin;
 
 /**
  * セッション管理に関する設定

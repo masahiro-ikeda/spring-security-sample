@@ -1,4 +1,4 @@
-package com.sample.web.security.login;
+package com.sample.authentication.login;
 
 import java.util.List;
 
@@ -6,6 +6,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class LoginUser implements UserDetails {
+	
+	private static final long serialVersionUID = 1L;
 
 	private String userId;
 	private String userName;

@@ -1,4 +1,4 @@
-package com.sample.web.security.login;
+package com.sample.authentication.login;
 
 import java.util.ArrayList;
 import java.util.List;

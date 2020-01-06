@@ -1,4 +1,4 @@
-package com.sample.web.security.login;
+package com.sample.authentication.login;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,8 +14,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 import com.sample.common.model.Facility;
-import com.sample.web.app.query.FacilityQuery;
-import com.sample.web.security.session.SessionUser;
+import com.sample.application.query.FacilityQuery;
+import com.sample.authentication.session.SessionUser;
 
 @Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {

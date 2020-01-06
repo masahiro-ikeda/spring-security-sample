@@ -1,4 +1,4 @@
-package com.sample.web.app.query;
+package com.sample.application.query;
 
 import java.util.List;
 

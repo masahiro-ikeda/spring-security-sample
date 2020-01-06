@@ -1,4 +1,4 @@
-package com.sample.web.config.datasource;
+package com.sample.application.config.datasource;
 
 import javax.sql.DataSource;
 
@@ -15,7 +15,7 @@ public class DatasourceConfig {
 	public DataSource dataSource() {
 		HikariConfig dataSourceConfig = new HikariConfig();
 		dataSourceConfig.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSourceConfig.setJdbcUrl("jdbc:mysql://localhost/develop");
+		dataSourceConfig.setJdbcUrl("jdbc:mysql://localhost:13306/develop");
 		dataSourceConfig.setUsername("dev-user");
 		dataSourceConfig.setPassword("dev-pass");
 

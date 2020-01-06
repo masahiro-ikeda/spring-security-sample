@@ -1,4 +1,4 @@
-package com.sample.web.security.session;
+package com.sample.authentication.session;
 
 import java.io.Serializable;
 import java.util.List;

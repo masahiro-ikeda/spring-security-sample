@@ -1,4 +1,4 @@
-package com.sample.web.app.controller;
+package com.sample.application.controller;
 
 import java.util.Optional;
 
@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sample.authentication.session.SessionUser;
 import com.sample.common.model.Facility;
 import com.sample.common.repository.FacilityRepository;
-import com.sample.web.security.session.SessionUser;
 
 @Controller
 public class SampleController {
 
-	private FacilityRepository facilityRepository;
 	private SessionUser session;
+	private FacilityRepository facilityRepository;
 
 	/**
 	 * @param facilityRepository
@@ -27,6 +27,34 @@ public class SampleController {
 	SampleController(FacilityRepository facilityRepository, SessionUser session) {
 		this.facilityRepository = facilityRepository;
 		this.session = session;
+	}
+
+	/**
+	 * 施設選択画面を表示させる
+	 */
+	@GetMapping("select")
+	public String showSelect(Model model) {
+
+		model.addAttribute("facilities", session.getFacilities());
+
+		return "select";
+	}
+
+	/**
+	 * @param facility
+	 * @return
+	 */
+	@PostMapping("select")
+	public String selectFacility(@RequestParam("facility") Integer facility) {
+
+		Optional<Facility> queryResult = facilityRepository.findById(facility);
+
+		if (queryResult.isPresent()) {
+			session.setFacility(queryResult.get());
+			return "redirect:home";
+		} else {
+			return "redirect:select";
+		}
 	}
 
 	/**
@@ -42,33 +70,5 @@ public class SampleController {
 		model.addAttribute("facility", session.getFacility().getFacilityName());
 
 		return "home";
-	}
-
-	/**
-	 * @param facility
-	 * @return
-	 */
-	@PostMapping("home")
-	public String selectFacility(@RequestParam("facility") Integer facility) {
-
-		Optional<Facility> queryResult = facilityRepository.findById(facility);
-
-		if (queryResult.isPresent()) {
-			session.setFacility(queryResult.get());
-			return "redirect:home";
-		} else {
-			return "redirect:select";
-		}
-	}
-
-	/**
-	 * 施設選択画面を表示させる
-	 */
-	@GetMapping("select")
-	public String showSelect(Model model) {
-
-		model.addAttribute("facilities", session.getFacilities());
-
-		return "select";
 	}
 }
