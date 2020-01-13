@@ -1,4 +1,4 @@
-package com.sample.authentication.login.config;
+package com.sample.authentication.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -11,9 +11,6 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import com.sample.authentication.login.LoginService;
-import com.sample.authentication.login.LoginSuccessHandler;
 
 /**
  * Spring Security設定.
@@ -44,23 +41,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		// 認可の設定
 		http.authorizeRequests()
-			.mvcMatchers("/login").permitAll()
+			.mvcMatchers("/security").permitAll()
 			.mvcMatchers("/home", "/select").authenticated();
 
 		// ログイン設定
 		http.formLogin()
-			.loginProcessingUrl("/login/login")
+			.loginProcessingUrl("/security/security")
 			.usernameParameter("username")
 			.passwordParameter("password")
 			.successHandler(authenticationSuccessHandler)
 			.permitAll();
 
 		// csrf設定
-		http.csrf().ignoringAntMatchers("/login/login");
+		http.csrf().ignoringAntMatchers("/security/security");
 		http.csrf().csrfTokenRepository(new CookieCsrfTokenRepository());
 		
 		// ログアウト設定
-		http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/login/logout"));
+		http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/security/logout"));
 	}
 
 	/**

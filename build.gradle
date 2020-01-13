@@ -11,39 +11,27 @@ buildscript {
     }
 }
 
-// 全プロジェクトの共通設定
-allprojects {
-    apply plugin: "java"
-    apply plugin: "io.spring.dependency-management"
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
-    sourceCompatibility = '11'
-	targetCompatibility = '11'
+group = 'com.sample'
+sourceCompatibility = '11'
 
-    repositories {
-    	mavenCentral()
-    }
-
-    dependencyManagement {
-        imports {
-            mavenBom "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
-        }
-    }
+repositories {
+    mavenCentral()
 }
 
-group = 'com.sample.root'
-apply plugin: 'org.springframework.boot'
-
 dependencies {
-    implementation project('spring-security-common')
-
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-devtools'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1'
-
+    
     implementation 'org.apache.commons:commons-lang3:3.4'
+
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'mysql:mysql-connector-java:5.1.47'
 
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
