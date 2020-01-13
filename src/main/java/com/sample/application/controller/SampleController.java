@@ -6,6 +6,7 @@ import com.sample.common.dao.repository.FacilityRepository;
 import com.sample.authentication.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +37,7 @@ public class SampleController {
      * 施設選択画面を表示させる
      */
     @GetMapping("select")
+    @Transactional(readOnly = true)
     public String showSelect(Model model) {
 
         List<Facility> facilities = facilityQuery.findByUserId( session.getUserId() );

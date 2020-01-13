@@ -8,10 +8,22 @@ services:
     volumes:
       - "./data/redis:/data"
 
-  mysql:
-    build: ./mysql/  # Dockerfileを利用
+  mysql-master:
+    build: mysql-master/  # Dockerfileを利用
     ports:
       - "13306:3306" # ポートを開ける
+    environment:
+      - MYSQL_ROOT_PASSWORD=pass
+      - MYSQL_USER=dev-user
+      - MYSQL_PASSWORD=dev-pass
+      - MYSQL_DATABASE=develop
+
+  mysql-slave:
+    build: mysql-slave/  # Dockerfileを利用
+    ports:
+      - "13307:3306" # ポートを開ける
+    depends_on:
+      - mysql-master # マスターDBに依存
     environment:
       - MYSQL_ROOT_PASSWORD=pass
       - MYSQL_USER=dev-user

@@ -17,7 +17,8 @@ public class DataSourceConfig {
 	public DataSource dataSource() {
 		HikariConfig dataSourceConfig = new HikariConfig();
 		dataSourceConfig.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSourceConfig.setJdbcUrl("jdbc:mysql://localhost:13306/develop");
+		// master, slaveの順で定義
+		dataSourceConfig.setJdbcUrl("jdbc:mysql:replication://localhost:13306,localhost:13307/develop");
 		dataSourceConfig.setUsername("dev-user");
 		dataSourceConfig.setPassword("dev-pass");
 
