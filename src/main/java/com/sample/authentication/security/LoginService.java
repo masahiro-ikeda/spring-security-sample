@@ -1,8 +1,11 @@
 package com.sample.authentication.security;
 
+import com.sample.application.controller.SampleController;
 import com.sample.common.dao.entity.User;
 import com.sample.common.dao.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,6 +18,7 @@ import java.util.Optional;
 
 @Service
 public class LoginService implements UserDetailsService {
+    private static final Logger logger = LoggerFactory.getLogger("com.sample.authentication.security");
 
     private UserRepository userRepository;
 
@@ -30,24 +34,28 @@ public class LoginService implements UserDetailsService {
      */
     public LoginUser loadUserByUsername(String username) throws UsernameNotFoundException {
 
+        logger.info("LoginId: " + username);
+
         // nullチェック
-        if (StringUtils.isEmpty( username )) {
-            throw new UsernameNotFoundException( "userId is empty." );
+        if (StringUtils.isEmpty(username)) {
+            logger.info("userId is empty.");
+            throw new UsernameNotFoundException("userId is empty.");
         }
 
         // ユーザ取得
-        Optional<User> result = userRepository.findById( username );
+        Optional<User> result = userRepository.findById(username);
         if (result.isPresent()) {
             User user = result.get();
 
             List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-            authorities.add( new SimpleGrantedAuthority( user.getUserRole() ) );
+            authorities.add(new SimpleGrantedAuthority(user.getUserRole()));
 
-            return new LoginUser( user.getUserId(), user.getUserName(), user.getPassword(), authorities);
+            return new LoginUser(user.getUserId(), user.getUserName(), user.getPassword(), authorities);
 
         } else {
             // Userが取得不可なら例外スロー
-            throw new UsernameNotFoundException( "Specified User is not exists." );
+            logger.info("Specified User is not exists.");
+            throw new UsernameNotFoundException("Specified User is not exists.");
         }
     }
 }

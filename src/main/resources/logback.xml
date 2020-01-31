@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE logback>
+<configuration>
+
+    <property name="logDir" value="./logs/"/>
+    <property name="format" value="%d{yyyy/MM/dd HH:mm:ss.SSS} [%t] [%-5le] %lo{36} - %msg %n"/>
+
+    <!-- 1. ログ出力のスタイルを定義 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${format}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="APPLICATION" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logDir}application.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logDir}application.%d{yyyyMMdd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${format}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="AUTHENTICATION" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logDir}authentication.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logDir}authentication.%d{yyyyMMdd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${format}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 2. アプリ側での参照名を定義 -->
+    <logger name="com.sample.application" level="info" additivity="false">
+        <appender-ref ref="APPLICATION"/>
+    </logger>
+    <logger name="com.sample.authentication" level="info" additivity="false">
+        <appender-ref ref="AUTHENTICATION"/>
+    </logger>
+
+    <!-- 3. 標準ログ出力 -->
+    <root level="INFO">
+        <appender-ref ref="APPLICATION"/>
+        <appender-ref ref="AUTHENTICATION"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

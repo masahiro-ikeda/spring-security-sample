@@ -1,20 +1,21 @@
 package com.sample.common.dao.entity;
 
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "facilities")
 public class Facility {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="facility_id")
     private int facilityId;
 
     @Column
     private String facilityName;
+
+    @Version
+    private int version;
 
     public int getFacilityId() {
         return facilityId;

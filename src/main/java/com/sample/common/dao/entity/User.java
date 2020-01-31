@@ -1,15 +1,13 @@
 package com.sample.common.dao.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
+    @Column(name="user_id")
     private String userId;
 
     @Column
@@ -20,6 +18,9 @@ public class User {
 
     @Column
     private String userRole;
+
+    @Version
+    private int version;
 
     public String getUserId() {
         return userId;
@@ -51,5 +52,9 @@ public class User {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 }

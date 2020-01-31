@@ -12,12 +12,13 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 @Configuration
 public class DataSourceConfig {
 
+	/**
 	// データベースの接続設定
 	@Bean
 	public DataSource dataSource() {
 		HikariConfig dataSourceConfig = new HikariConfig();
 		dataSourceConfig.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSourceConfig.setJdbcUrl("jdbc:mysql://localhost:13306/develop");
+		dataSourceConfig.setJdbcUrl("jdbc:mysql://localhost:13306/develop?useSSL=false");
 		dataSourceConfig.setUsername("dev-user");
 		dataSourceConfig.setPassword("dev-pass");
 
@@ -33,4 +34,6 @@ public class DataSourceConfig {
 
 		return new LettuceConnectionFactory(redisHost, redisPort);
 	}
+
+	**/
 }
