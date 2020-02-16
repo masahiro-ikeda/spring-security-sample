@@ -6,7 +6,7 @@ services:
     ports:
       - "16379:6379"
     volumes:
-      - "./data/redis:/data"
+      - "./redis/data:/data"
 
   mysql:
     build: ./mysql/  # Dockerfileを利用
@@ -17,3 +17,5 @@ services:
       - MYSQL_USER=dev-user
       - MYSQL_PASSWORD=dev-pass
       - MYSQL_DATABASE=develop
+    volumes:
+      - "./mysql/data:/var/lib/mysql"
